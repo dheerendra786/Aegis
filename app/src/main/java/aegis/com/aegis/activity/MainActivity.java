@@ -164,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
             session.logoutUser();
             finish();
             return true;
+        } else if(item.getItemId() == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return false;
         }
         return false;
     }

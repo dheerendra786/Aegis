@@ -17,14 +17,14 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             fragment = new FragmentA();
         else if (position == 1)
             fragment = new FragmentB();
-        else if (position == 2)
-            fragment = new FragmentC();
+        /*else if (position == 2)
+            fragment = new FragmentC();*/
         return fragment;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Override
