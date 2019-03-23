@@ -189,5 +189,6 @@
     <string name="username_val">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
     <string name="username_hint">Only digits &amp; alphabelts allowed</string>
     <string name="press_back_twice">Press back again to exit the app</string>
+  <string name="logout">Logout</string>
 
 </resources>

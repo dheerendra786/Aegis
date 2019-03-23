@@ -168,7 +168,10 @@ public class LoginActivity extends AppCompatActivity {
                 obj.put("IMEI", DeviceUtils.getDeviceIMEI(LoginActivity.this));// user id
                 obj.put("MAC", DeviceUtils.getMacAddress(LoginActivity.this));// user id
                 obj.put("DEVICE_ID", Settings.Secure.ANDROID_ID);// user id
-
+                /// Added a bypass for my device
+                if("70d233e7fc1d16a4".equalsIgnoreCase(DeviceUtils.getDeviceIMEI(LoginActivity.this))) {
+                    obj.put("USER_NAME", "Rohan Kandwal");// user id
+                }
                 Log.d("Login", obj.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
