@@ -285,6 +285,7 @@ public class AlertDialogActivity extends AppCompatActivity {
 
                             } else {
                                 AlertUtils.showToast(AlertDialogActivity.this, AegisConfig.WebConstants.NETWORK_MESSAGE);
+                                finish();
                             }
 
                         }
@@ -352,7 +353,6 @@ public class AlertDialogActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             mProgressBarDialog.dismiss();
 
-
                             if (DeviceUtils.isInternetOn(AlertDialogActivity.this)) {
                                 NetworkResponse response = error.networkResponse;
                                 if (error instanceof ServerError && response != null) {
@@ -378,6 +378,7 @@ public class AlertDialogActivity extends AppCompatActivity {
 
                             } else {
                                 AlertUtils.showToast(AlertDialogActivity.this, AegisConfig.WebConstants.NETWORK_MESSAGE);
+                                AlertDialogActivity.this.finish();
                             }
 
                         }

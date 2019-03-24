@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -36,9 +37,9 @@ public class CallReceiver extends BroadcastReceiver {
         } else {
             String stateStr = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
             String number = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
-            int state = 0;
-            if (stateStr.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                state = TelephonyManager.CALL_STATE_IDLE;
+            int state = TelephonyManager.CALL_STATE_IDLE;
+            if (stateStr == null) {
+              Log.d("CallReceiver","Couldn't get state");
             } else if (stateStr.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
                 state = TelephonyManager.CALL_STATE_OFFHOOK;
             } else if (stateStr.equals(TelephonyManager.EXTRA_STATE_RINGING)) {

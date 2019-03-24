@@ -83,7 +83,12 @@ public class LocationMonitoringService extends Service implements
 
             return;
         }
-        LocationServices.FusedLocationApi.requestLocationUpdates(mLocationClient, mLocationRequest, this);
+        if (mLocationClient.isConnected()) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mLocationClient,
+              mLocationRequest, this);
+        } else {
+            mLocationClient.connect();
+        }
 
         Log.d(TAG, "Connected to Google API");
     }
