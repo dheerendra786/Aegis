@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="LOGOUT"
+        android:visibility="gone"
         android:layout_marginTop="15dp"
         android:gravity="left"/>
 

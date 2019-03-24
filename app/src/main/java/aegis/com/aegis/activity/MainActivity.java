@@ -1,9 +1,11 @@
 package aegis.com.aegis.activity;
 
+import aegis.com.aegis.Utils.DeviceUtils;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -18,6 +20,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -161,8 +164,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_logout) {
-            session.logoutUser();
-            finish();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.app_name);
+            builder.setIcon(R.mipmap.ic_launcher);
+            builder.setMessage("Do you want to Logout?")
+              .setCancelable(false)
+              .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                  public void onClick(DialogInterface dialog, int id) {
+                      dialog.cancel();
+                      session.logoutUser();
+                      finish();
+                  }
+              })
+              .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                  public void onClick(DialogInterface dialog, int id) {
+                      dialog.cancel();
+                  }
+              });
+            AlertDialog alert = builder.create();
+            alert.show();
+
             return true;
         } else if(item.getItemId() == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
@@ -179,8 +200,10 @@ public class MainActivity extends AppCompatActivity {
         //This method will executed only once.
 //        if (!mAlreadyStartedService) {
         //Start location sharing service to app server.........
-        Intent intent = new Intent(this, LocationMonitoringService.class);
-        startService(intent);
+        if (Boolean.valueOf(session.getKeyEnableLocation())) {
+            Intent intent = new Intent(this, LocationMonitoringService.class);
+            startService(intent);
+        }
 //            mAlreadyStartedService = true;
         //Ends................................................
 //        }

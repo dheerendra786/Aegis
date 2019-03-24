@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ import aegis.com.aegis.widgets.ProgressBarDialog;
 
 public class FragmentC extends Fragment {
 
-    SwitchCompat mLocation, mLogout;
+    SwitchCompat mLocation;//, mLogout;
     SessionManager session;
     TextView txtFrom, txtTo;
     private ProgressBarDialog mProgressBarDialog;
@@ -60,12 +61,18 @@ public class FragmentC extends Fragment {
         txtFrom = (TextView) rootView.findViewById(R.id.txtFromTime);
         txtTo = (TextView) rootView.findViewById(R.id.txtToTime);
         mLocation = (SwitchCompat) rootView.findViewById(R.id.switchLocation);
-        mLogout = (SwitchCompat) rootView.findViewById(R.id.switchLogout);
+        //mLogout = (SwitchCompat) rootView.findViewById(R.id.switchLogout);
 
         mLocation.setChecked(Boolean.valueOf(session.getKeyEnableLocation()));
 
 
+        if (!TextUtils.isEmpty(session.getFromTime())) {
+            txtFrom.setText(String.format(getString(R.string.from_time), session.getFromTime()));
+        }
 
+        if (!TextUtils.isEmpty(session.getToTime())) {
+            txtTo.setText(String.format(getString(R.string.from_time), session.getToTime()));
+        }
         txtFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +83,9 @@ public class FragmentC extends Fragment {
                 mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        txtFrom.setText("Break Time: From (" + selectedHour + ":" + selectedMinute + ")");
+                        final String time = selectedHour + ":" + selectedMinute;
+                        txtFrom.setText("Break Time: From (" + time + ")");
+                        session.saveFromTime(time);
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select BreakTime (FROM)");
@@ -95,7 +104,9 @@ public class FragmentC extends Fragment {
                 mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        txtTo.setText("Break Time: To (" + selectedHour + ":" + selectedMinute + ")");
+                        final String time = selectedHour + ":" + selectedMinute;
+                        txtTo.setText("Break Time: To (" + time + ")");
+                        session.saveToTime(time);
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select BreakTime (TO)");
@@ -104,7 +115,7 @@ public class FragmentC extends Fragment {
             }
         });
 
-        mLogout.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*mLogout.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -128,12 +139,13 @@ public class FragmentC extends Fragment {
                     alert.show();
                 }
             }
-        });
+        });*/
 
         mLocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mLocation.setChecked(isChecked);
+                //mLocation.setChecked(isChecked);
+                session.setEnableLocation(isChecked);
             }
         });
 
