@@ -1,5 +1,6 @@
 package aegis.com.aegis.services;
 
+import aegis.com.aegis.SessionManager;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -563,6 +564,12 @@ public class RecordingService extends Service implements SharedPreferences.OnSha
         String channelId = getString(R.string.app_name);
         NotificationChannel notificationChannel;
         Notification notification;
+        String message = "Connected through SDL";
+        int smallIcon = R.drawable.ic_call_black_24dp;
+        if (!new SessionManager(this).isLoggedIn()) {
+            smallIcon = R.drawable.ic_call_end;
+            message = "SDL Disconnected";
+        }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             notificationChannel = new NotificationChannel(channelId, channelId, NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setDescription(channelId);
@@ -571,16 +578,16 @@ public class RecordingService extends Service implements SharedPreferences.OnSha
 
             notification = new Notification.Builder(this, channelId)
                     .setContentTitle(title)
-                    .setContentText("Connected through SDL")
-                    .setSmallIcon(R.drawable.ic_call_black_24dp)
+                    .setContentText(message)
+                    .setSmallIcon(smallIcon)
                     .setOngoing(true)
                     .setContentIntent(main)
                     .build();
         } else {
             notification = new Notification.Builder(this)
                     .setContentTitle(title)
-                    .setContentText("Connected through SDL")
-                    .setSmallIcon(R.drawable.ic_call_black_24dp)
+                    .setContentText(message)
+                    .setSmallIcon(smallIcon)
                     .setPriority(Notification.PRIORITY_MAX)
                     .setOngoing(true)
                     .setContentIntent(main)
@@ -599,8 +606,16 @@ public class RecordingService extends Service implements SharedPreferences.OnSha
         String channelId = getString(R.string.app_name);
         String title = getString(R.string.app_name);
 
+        String message = "Connected through SDL";
+        int smallIcon = R.drawable.ic_call_black_24dp;
+        if (!new SessionManager(this).isLoggedIn()) {
+            smallIcon = R.drawable.ic_call_end;
+            message = "SDL Disconnected";
+        }
+
         Notification notification;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (notificationManager != null &&
+          android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(channelId
                     , channelId, NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setDescription(channelId);
@@ -609,15 +624,15 @@ public class RecordingService extends Service implements SharedPreferences.OnSha
 
             notification = new Notification.Builder(this, channelId)
                     .setContentTitle(title)
-                    .setContentText("Connected through SDL")
-                    .setSmallIcon(R.drawable.ic_call_black_24dp)
+                    .setContentText(message)
+                    .setSmallIcon(smallIcon)
                     .setOngoing(true)
                     .build();
         } else {
             notification = new Notification.Builder(this)
                     .setContentTitle(title)
-                    .setContentText("Connected through SDL")
-                    .setSmallIcon(R.drawable.ic_call_black_24dp)
+                    .setContentText(message)
+                    .setSmallIcon(smallIcon)
                     .setOngoing(true)
                     .setPriority(Notification.PRIORITY_MAX)
                     .build();

@@ -97,7 +97,7 @@ public class CallApplication extends com.github.axet.audiolibrary.app.MainApplic
         SharedPreferences.Editor edit = shared.edit();
         edit.putFloat(PREFERENCE_VOLUME, shared.getFloat(PREFERENCE_VOLUME, 0) + 1); // update volume from 0..1 to 0..1..4
         edit.putInt(PREFERENCE_VERSION, 1);
-        edit.commit();
+        edit.apply();
     }
 
     public static String getContact(Context context, Uri f) {
@@ -111,7 +111,7 @@ public class CallApplication extends com.github.axet.audiolibrary.app.MainApplic
         String p = getFilePref(f) + PREFERENCE_DETAILS_CONTACT;
         SharedPreferences.Editor editor = shared.edit();
         editor.putString(p, id);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getCall(Context context, Uri f) {
@@ -125,7 +125,7 @@ public class CallApplication extends com.github.axet.audiolibrary.app.MainApplic
         String p = getFilePref(f) + PREFERENCE_DETAILS_CALL;
         SharedPreferences.Editor editor = shared.edit();
         editor.putString(p, id);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getString(Context context, Locale locale, int id, Object... formatArgs) {
