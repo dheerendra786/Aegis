@@ -60,4 +60,6 @@ dependencies {
     implementation "org.apache.commons:commons-csv:1.5"
     implementation 'com.github.axet:vorbis:1.0.4'
     implementation 'com.android.support:multidex:1.0.3'
+    //   Used for playing audios
+    implementation "com.github.sachinvarma:JcPlayer:2.6.38"
 }

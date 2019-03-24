@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setOffscreenPageLimit(viewPagerAdapter.getCount());
         tabLayout.setupWithViewPager(viewPager);
         startLocationService();
         preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);

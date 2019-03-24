@@ -14,8 +14,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         if (position == 0)
+            fragment = new RecordingPlayerFragment();
+        if (position == 1)
             fragment = new FragmentA();
-        else if (position == 1)
+        else if (position == 2)
             fragment = new FragmentB();
         /*else if (position == 2)
             fragment = new FragmentC();*/
@@ -24,19 +26,18 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         String title = null;
         if (position == 0)
-            title = "Contacts";
+            title = "Recordings";
         else if (position == 1)
-            title = "Notifications";
+            title = "Contacts";
         else if (position == 2)
-            title = "Settings";
-
+            title = "Notifications";
         return title;
     }
 }
