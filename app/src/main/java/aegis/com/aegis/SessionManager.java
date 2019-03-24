@@ -5,6 +5,7 @@ import aegis.com.aegis.activity.LoginActivity;
 import aegis.com.aegis.activity.MainActivity;
 import aegis.com.aegis.activity.WelcomeActivity;
 import aegis.com.aegis.model.Result;
+import aegis.com.aegis.services.RecordingService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -122,6 +123,7 @@ public class SessionManager {
     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     _context.startActivity(i);
+    RecordingService.stopService(_context);
   }
 
   /**
