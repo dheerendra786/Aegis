@@ -201,5 +201,6 @@
   <string name="enter_port_address">Enter port number</string>
   <string name="server_url">Enter server url</string>
   <string name="enter_server_ip">Enter server url</string>
+  <string name="no_data">No data</string>
 
 </resources>

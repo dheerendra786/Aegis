@@ -79,6 +79,7 @@ public class RecordingPlayerFragment extends Fragment
 
     }
   };
+  private View view;
 
   @Nullable
   @Override
@@ -93,12 +94,18 @@ public class RecordingPlayerFragment extends Fragment
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    this.view = view;
+    setRecordingList();
+  }
+
+  private void setRecordingList() {
     if (getActivity() != null
       && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
       == PackageManager.PERMISSION_GRANTED) {
 
       final File audioFileList = new File(Environment.getExternalStorageDirectory() + "/aegis");
       if (audioFileList.exists() && audioFileList.listFiles().length > 0) {
+        view.findViewById(R.id.tvEmptyList).setVisibility(View.GONE);
         final RecyclerView rvAudioList = view.findViewById(R.id.rvAudioList);
         jcPlayerView = view.findViewById(R.id.jcplayer);
         jcPlayerView.setJcPlayerManagerListener(listener);
@@ -109,6 +116,22 @@ public class RecordingPlayerFragment extends Fragment
           Log.d("RecordingPlayer", audioFile.getName());
         }*/
       }
+    }
+  }
+
+  @Override
+  public void setUserVisibleHint(boolean isVisibleToUser) {
+    super.setUserVisibleHint(isVisibleToUser);
+    if (isVisibleToUser && adapter == null) {
+      setRecordingList();
+    }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    if (adapter == null) {
+      setRecordingList();
     }
   }
 
