@@ -1,7 +1,10 @@
 package aegis.com.aegis.activity;
 
+import aegis.com.aegis.SessionManager;
+import aegis.com.aegis.Utils.AegisConfig;
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,8 +13,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import aegis.com.aegis.R;
@@ -25,6 +32,52 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         mBtnLogin = findViewById(R.id.welcome_btnLogin);
         mBtnSignUp = findViewById(R.id.welcome_btnSignUp);
+        findViewById(R.id.ivSettings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog = new Dialog(WelcomeActivity.this);
+                dialog.setContentView(R.layout.ip_port_dialog);
+                dialog.setTitle(R.string.change_ip_port);
+                final EditText etIpAddress = (dialog.findViewById(R.id.etIPAddress));
+                etIpAddress.setText(AegisConfig.SERVER_URL);
+
+                dialog.findViewById(R.id.btOk).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String ipAddress = etIpAddress.getText().toString().trim();
+                        //final String portNumber = dialog.findViewById(R.id.etPort).toString().trim();
+                        if (TextUtils.isEmpty(ipAddress)) {
+                            Toast.makeText(WelcomeActivity.this, R.string.enter_server_ip,
+                              Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        /*if (TextUtils.isEmpty(portNumber)) {
+                            Toast.makeText(WelcomeActivity.this, R.string.enter_port_address,
+                              Toast.LENGTH_SHORT).show();
+                            return;
+                        }*/
+
+                        if (!ipAddress.startsWith("http://")) {
+                            ipAddress = "http://" + ipAddress;
+                        }
+
+                        AegisConfig.SERVER_URL = ipAddress;
+                        new SessionManager(WelcomeActivity.this).saveServerUrl(ipAddress);
+                        dialog.cancel();
+                    }
+                });
+                dialog.findViewById(R.id.btCancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                    }
+                });
+                dialog.show();
+                Window window = dialog.getWindow();
+                if (window != null)
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            }
+        });
         checkPermission();
     }
 

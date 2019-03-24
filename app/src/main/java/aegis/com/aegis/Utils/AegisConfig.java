@@ -7,7 +7,7 @@ public class AegisConfig {
         int CONNECTIONTIMEOUT = 60 * 1000;
         int READTIMEOUT = 60 * 1000;
 
-        String HOST_API = "http://116.73.50.95:81/rec/"; // Live IP
+        String HOST_API = AegisConfig.SERVER_URL; // Live IP
 
         String HOST_API_IMAGE = "https://experchatqa.s3.amazonaws.com/";
         String BASE64URl = "data:image/jpeg;base64,";
@@ -19,4 +19,5 @@ public class AegisConfig {
 
     }
 
+    public static String SERVER_URL = "http://116.73.50.95:81/rec/"; // Editable field
 }

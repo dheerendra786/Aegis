@@ -1,5 +1,6 @@
 package aegis.com.aegis;
 
+import aegis.com.aegis.Utils.AegisConfig;
 import aegis.com.aegis.Utils.Constants;
 import aegis.com.aegis.activity.LoginActivity;
 import aegis.com.aegis.activity.MainActivity;
@@ -148,5 +149,13 @@ public class SessionManager {
 
   public void saveToTime(String time) {
     editor.putString(Constants.TO_TIME, time).apply();
+  }
+
+  public void saveServerUrl(String ipAddress) {
+    editor.putString(Constants.SAVED_WEB_ADDRESS, ipAddress).apply();
+  }
+
+  public String getServerUrl() {
+    return pref.getString(Constants.SAVED_WEB_ADDRESS, AegisConfig.SERVER_URL); // Default is base url
   }
 }

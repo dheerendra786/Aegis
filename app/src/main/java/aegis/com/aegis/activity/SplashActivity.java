@@ -1,5 +1,6 @@
 package aegis.com.aegis.activity;
 
+import aegis.com.aegis.Utils.AegisConfig;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -29,6 +30,8 @@ public class SplashActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         session = new SessionManager(getApplicationContext());
+        // Setting the base url
+        AegisConfig.SERVER_URL = session.getServerUrl();
         if (session.isLoggedIn()) {
             startMainActivity();
             return;

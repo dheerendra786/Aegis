@@ -192,5 +192,14 @@
   <string name="logout">Logout</string>
   <string name="from_time">Break Time: From ( %s )</string>
   <string name="from_to">Break Time: To ( %s )</string>
+  <string name="ip_address">IP address</string>
+  <string name="port_number">Port Number</string>
+  <string name="change_ip_port"><![CDATA[Change IP & Port]]></string>
+  <string name="ok">Ok</string>
+  <string name="cancel">Cancel</string>
+  <string name="enter_ip_address">Enter IP address</string>
+  <string name="enter_port_address">Enter port number</string>
+  <string name="server_url">Enter server url</string>
+  <string name="enter_server_ip">Enter server url</string>
 
 </resources>

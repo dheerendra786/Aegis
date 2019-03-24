@@ -5,6 +5,7 @@ public class Constants {
   public static final String ADVERTISING_ID = "advertising_id";
   public static final String FROM_TIME = "from_time";
   public static final String TO_TIME = "to_time";
+  public static final String SAVED_WEB_ADDRESS = "saved_web_address";
 
   public interface ACTION {
     public static String MAIN_ACTION = "com.foregroundservice.action.main";

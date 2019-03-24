@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            Log.d("BaseUrl", AegisConfig.WebConstants.HOST_API);
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, AegisConfig.WebConstants.HOST_API + "" + keyword, obj,
                     new Response.Listener<JSONObject>() {
                         @Override
