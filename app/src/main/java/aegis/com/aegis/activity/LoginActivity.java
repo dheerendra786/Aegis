@@ -171,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                 /// Added a bypass for my device
                 if("70d233e7fc1d16a4".equalsIgnoreCase(DeviceUtils.getDeviceIMEI(LoginActivity.this))) {
                     obj.put("USER_NAME", "Rohan Kandwal");// user id
+                    obj.put("MAC", "020000000000");// mac ID
                 }
                 Log.d("Login", obj.toString());
             } catch (JSONException e) {

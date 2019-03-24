@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
@@ -39,6 +40,7 @@ import aegis.com.aegis.Utils.Constants;
 import aegis.com.aegis.app.CallApplication;
 import aegis.com.aegis.app.Storage;
 import aegis.com.aegis.services.RecordingService;
+import java.lang.reflect.Method;
 
 import static aegis.com.aegis.services.RecordingService.PERMISSIONS;
 import static aegis.com.aegis.services.RecordingService.RESULT_CALL;
@@ -286,6 +288,20 @@ public class MainActivity extends AppCompatActivity {
         lblinfo = (TextView) diallerLayout.findViewById(R.id.lblinfo);
         mLayout.addView(diallerLayout);
         btnDialler.setVisibility(View.GONE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            edtPhoneNo.setShowSoftInputOnFocus(false);
+        } else {
+            try {
+                final Method method = EditText.class.getMethod(
+                  "setShowSoftInputOnFocus"
+                  , new Class[]{boolean.class});
+                method.setAccessible(true);
+                method.invoke(edtPhoneNo, false);
+            } catch (Exception e) {
+                // ignore
+            }
+        }
     }
 
     public void buttonClickEvent(View v) {
@@ -398,6 +414,10 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (Exception ex) {
 
+        }
+
+        if (edtPhoneNo != null) {
+            edtPhoneNo.setSelection(edtPhoneNo.getText().length());
         }
     }
 
