@@ -60,6 +60,9 @@ public class WelcomeActivity extends AppCompatActivity {
                         if (!ipAddress.startsWith("http://")) {
                             ipAddress = "http://" + ipAddress;
                         }
+                        if (!ipAddress.endsWith("/")) {
+                            ipAddress += "/";
+                        }
 
                         AegisConfig.SERVER_URL = ipAddress;
                         new SessionManager(WelcomeActivity.this).saveServerUrl(ipAddress);
@@ -189,6 +192,11 @@ public class WelcomeActivity extends AppCompatActivity {
                     mBtnLogin.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            if (TextUtils.isEmpty(AegisConfig.SERVER_URL)) {
+                                Toast.makeText(WelcomeActivity.this,
+                                  "Please configure the server url", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             Intent intent = new Intent(WelcomeActivity.this,LoginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
@@ -197,6 +205,11 @@ public class WelcomeActivity extends AppCompatActivity {
                     mBtnSignUp.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            if (TextUtils.isEmpty(AegisConfig.SERVER_URL)) {
+                                Toast.makeText(WelcomeActivity.this,
+                                  "Please configure the server url", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             Intent intent = new Intent(WelcomeActivity.this,SignupActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);

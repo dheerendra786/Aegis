@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/username_hint"
             android:inputType="text"
+            android:textAllCaps="false"
             android:maxLength="20"
             android:digits="@string/username_val"
             />

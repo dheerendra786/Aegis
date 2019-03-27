@@ -19,5 +19,6 @@ public class AegisConfig {
 
     }
 
-    public static String SERVER_URL = "http://116.73.50.95:81/rec/"; // Editable field
+    //http://116.73.50.95:81/rec/
+    public static String SERVER_URL = ""; // Editable field
 }
