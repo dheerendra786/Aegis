@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import aegis.com.aegis.R;
@@ -39,27 +40,51 @@ public class WelcomeActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.ip_port_dialog);
                 dialog.setTitle(R.string.change_ip_port);
                 final EditText etIpAddress = (dialog.findViewById(R.id.etIPAddress));
-                etIpAddress.setText(AegisConfig.SERVER_URL);
-
+                final EditText etPort = (dialog.findViewById(R.id.etPort));
+                final RadioGroup rgFlag = (RadioGroup) dialog.findViewById(R.id.rgProtocol);
+                rgFlag.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    }
+                });
                 dialog.findViewById(R.id.btOk).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String ipAddress = etIpAddress.getText().toString().trim();
+                        String ipPort = etPort.getText().toString().trim();
+                        String ipProtocol="";
+                        if (rgFlag.getCheckedRadioButtonId() == R.id.rbtnhttps)
+                            ipProtocol = "https";
+                        else
+                            ipProtocol = "http";
                         //final String portNumber = dialog.findViewById(R.id.etPort).toString().trim();
                         if (TextUtils.isEmpty(ipAddress)) {
                             Toast.makeText(WelcomeActivity.this, R.string.enter_server_ip,
                               Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        /*if (TextUtils.isEmpty(portNumber)) {
-                            Toast.makeText(WelcomeActivity.this, R.string.enter_port_address,
+                        else if (TextUtils.isEmpty(ipPort)) {
+                            Toast.makeText(WelcomeActivity.this, R.string.enter_port_number,
                               Toast.LENGTH_SHORT).show();
                             return;
-                        }*/
-
-                        if (!ipAddress.startsWith("http://")) {
-                            ipAddress = "http://" + ipAddress;
                         }
+                        else if (TextUtils.isEmpty(ipProtocol)) {
+                            Toast.makeText(WelcomeActivity.this, R.string.protocol,
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (ipProtocol.equalsIgnoreCase("http")) {
+                            ipAddress = "http://" + ipAddress+":"+ipPort;
+                        }
+                        else if(ipProtocol.equalsIgnoreCase("https")) {
+                            ipAddress = "https://" + ipAddress+":"+ipPort;
+                        }
+
+
+//                        if (!ipAddress.startsWith("http://")) {
+//                            ipAddress = "http://" + ipAddress;
+//                        }
                         if (!ipAddress.endsWith("/")) {
                             ipAddress += "/";
                         }

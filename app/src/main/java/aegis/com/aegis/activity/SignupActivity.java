@@ -229,13 +229,14 @@ public class SignupActivity extends AppCompatActivity {
 
                 obj.put("IMEI", DeviceUtils.getDeviceIMEI(SignupActivity.this));// user id
                 obj.put("MAC", DeviceUtils.getMacAddress(SignupActivity.this));// user id
-                obj.put("DEVICE_ID", Settings.Secure.ANDROID_ID);// user id
+                obj.put("DEVICE_ID", DeviceUtils.getDeviceIMEI(SignupActivity.this));// user id
+//                obj.put("DEVICE_ID", Settings.Secure.ANDROID_ID);// user id
                 Log.d("Signup", obj.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, AegisConfig.WebConstants.HOST_API + "" + keyword, obj,
+                String url = AegisConfig.WebConstants.HOST_API + "" + keyword;
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, obj,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

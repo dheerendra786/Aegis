@@ -30,12 +30,50 @@
       android:maxLines="1"
       android:paddingEnd="10dp"
       android:paddingStart="10dp"
-      android:visibility="gone"
-      android:text="@string/port_number"
+      android:visibility="visible"
+      android:hint="@string/port_number"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/etIPAddress"
       />
+
+  <TextView
+      android:id="@+id/txtLabel"
+      app:layout_constraintTop_toBottomOf="@+id/etPort"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/protocol"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      android:layout_marginTop="20dp"/>
+
+  <RadioGroup
+      app:layout_constraintTop_toBottomOf="@+id/txtLabel"
+      android:id="@+id/rgProtocol"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:paddingEnd="10dp"
+      android:paddingStart="10dp"
+      android:visibility="visible"
+      android:hint="@string/protocol"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      android:orientation="horizontal">
+
+    <RadioButton
+        android:id="@+id/rbtnhttps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/protocol_https" />
+
+    <RadioButton
+        android:id="@+id/rbtnhttp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/protocol_http"/>
+
+  </RadioGroup>
 
   <Button
       android:id="@+id/btOk"
@@ -44,7 +82,7 @@
       android:layout_marginTop="20dp"
       android:text="@string/ok"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/etPort"
+      app:layout_constraintTop_toBottomOf="@+id/rgProtocol"
       />
 
   <Button
@@ -56,6 +94,6 @@
       android:layout_marginTop="20dp"
       android:text="@string/cancel"
       app:layout_constraintEnd_toStartOf="@+id/btOk"
-      app:layout_constraintTop_toBottomOf="@+id/etPort"
+      app:layout_constraintTop_toBottomOf="@+id/rgProtocol"
       />
 </android.support.constraint.ConstraintLayout>
