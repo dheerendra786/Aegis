@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -29,6 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import aegis.com.aegis.R;
 import aegis.com.aegis.Utils.AegisConfig;
@@ -229,8 +232,8 @@ public class SignupActivity extends AppCompatActivity {
 
                 obj.put("IMEI", DeviceUtils.getDeviceIMEI(SignupActivity.this));// user id
                 obj.put("MAC", DeviceUtils.getMacAddress(SignupActivity.this));// user id
-                obj.put("DEVICE_ID", DeviceUtils.getDeviceIMEI(SignupActivity.this));// user id
-//                obj.put("DEVICE_ID", Settings.Secure.ANDROID_ID);// user id
+//                obj.put("DEVICE_ID", DeviceUtils.getDeviceIMEI(SignupActivity.this));// user id
+                obj.put("DEVICE_ID", Settings.Secure.ANDROID_ID);// user id
                 Log.d("Signup", obj.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -250,7 +253,7 @@ public class SignupActivity extends AppCompatActivity {
                                     AlertUtils.showToast(SignupActivity.this, "User Created Successfully!");
                                     SignupActivity.this.finish();
                                 } else {
-                                    AlertUtils.showToast(SignupActivity.this, "Error From Server");
+                                    AlertUtils.showToast(SignupActivity.this, universalResponse.getResult());
                                 }
                             }
                         }
@@ -296,14 +299,14 @@ public class SignupActivity extends AppCompatActivity {
 
                     }) {
 
-               /* @Override
+                @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Authorization", "Token " + AppPreference.getInstance().getmAccessToken());
+                    headers.put("Authorization", "Token " + "");
                     headers.put("Content-Type", "application/json");
                     System.out.println(">>>header" + headers);
                     return headers;
-                }*/
+                }
             };
 
 

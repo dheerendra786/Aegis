@@ -35,8 +35,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import aegis.com.aegis.R;
 import aegis.com.aegis.Utils.AegisConfig;
@@ -183,17 +186,28 @@ public class FragmentB extends Fragment {
             try {
 
                 obj.put("SESSION_ID", sessionID);// user id
-                obj.put("DATE", date);// user id
+                SimpleDateFormat sdf = new SimpleDateFormat("dd:MM:yy:HH:mm:ss", Locale.ENGLISH);
+                Date myDate = sdf.parse(date);
+                long millis = myDate.getTime();
+                obj.put("DATE", String.valueOf(millis));// user id
                 obj.put("CHECKSUM", checksumID);// user id
                 obj.put("FLAG", flag);// user id
                 obj.put("NOTE", remark);// user id
-                obj.put("STATUS", callStatus);
-                obj.put("DURATION", duration);
+                obj.put("STATUS", callStatus);;
+                String[] tokens = duration.split(":");
+                int secondsToMs = Integer.parseInt(tokens[2]);
+                int minutesToMs = Integer.parseInt(tokens[1]) * 60;
+                int hoursToMs = Integer.parseInt(tokens[0]) * 3600;
+                long total = secondsToMs + minutesToMs + hoursToMs;
+                obj.put("DURATION", String.valueOf(total));
                 obj.put("EXCLUDE", exclude);
                 obj.put("USER_NAME", userName);
 
 
             } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
             System.out.println(sessionID+", "+date+", "+checksumID+", "+flag+", "+remark+", "+callStatus+", "+duration+", "+exclude+", "+userName);

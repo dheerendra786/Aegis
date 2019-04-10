@@ -45,8 +45,10 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import aegis.com.aegis.R;
 import aegis.com.aegis.SessionManager;
@@ -323,6 +325,9 @@ public class AlertDialogActivity extends AppCompatActivity {
 
 
             } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
 

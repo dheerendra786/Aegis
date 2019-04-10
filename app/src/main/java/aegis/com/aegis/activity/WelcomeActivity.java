@@ -89,8 +89,8 @@ public class WelcomeActivity extends AppCompatActivity {
                             ipAddress += "/";
                         }
 
-                        AegisConfig.SERVER_URL = ipAddress;
-                        new SessionManager(WelcomeActivity.this).saveServerUrl(ipAddress);
+                        AegisConfig.SERVER_URL = ipAddress+"rec/";
+                        new SessionManager(WelcomeActivity.this).saveServerUrl(AegisConfig.SERVER_URL);
                         dialog.cancel();
                     }
                 });
